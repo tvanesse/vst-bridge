@@ -1,7 +1,20 @@
 This is a bridge to run Windows VST plugins (both 32 and 64 bits) with
 Linux VST hosts.
 
-= How to use it? =
+## Dependencies
+* gcc-multilib
+* wine >= 1.6
+
+## Build instructions
+
+```console
+$ cd vst-bridge
+$ ./configure
+$ make
+$ make install
+```
+
+## How to use it?
 
 Let's suppose that you have installed vst-bridge in ~/local/ and
 you have a windows VST installed in ~/.wine/drive_c/VST/Synth1/Synth1.dll
@@ -19,7 +32,7 @@ export VST_PATH=/usr/lib/vst/:$HOME/.vst-bridges/
 
 Then you can start your favorite DAW, ask him to scan plugins again and enjoy!
 
-= Architecture =
+## Architecture
 
 A typical installation looks like:
 /home/abique/local/
@@ -45,7 +58,7 @@ vst-bridge-host-(32|64).exe hosts a Windows VST and communicates with <plugin>.s
 <plugin>.so spawns a new wine process vst-bridge-host-(32|64).exe and
 passes the path to the Windows VST plugin.
 
-= Protocol =
+## Protocol
 
 The communication is done through socket(AF_UNIX, SOCK_SEQPACKET, 0).
 
@@ -54,12 +67,12 @@ The communication is done through socket(AF_UNIX, SOCK_SEQPACKET, 0).
  - cmd: 4 bytes
  - data: n bytes
 
-= Roadmap =
+## Roadmap
 
  - optimize I/O (reduce the number of bytes transfered)
  - make a scanner
 
-= Extra info =
+## Extra info
 
 http://www.steinberg.net/en/company/developer.html
 http://reaper.fm/sdk/vst/vst_ext.php
